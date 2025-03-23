@@ -78,7 +78,7 @@ namespace Tetris
             }
         }
 
-        public int ClearFulRows()
+        public int ClearFullRows()
         {
             int cleared = 0;
 
