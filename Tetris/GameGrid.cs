@@ -91,7 +91,7 @@ namespace Tetris
                 }
                 else if(cleared>0)
                 {
-                    MoveRowDown(r, cleared)
+                    MoveRowDown(r, cleared);
                 }
             }
 
@@ -99,4 +99,3 @@ namespace Tetris
         }
     }
 }
-//6:31 https://www.youtube.com/watch?v=jcUctrLC-7M
