@@ -35,7 +35,7 @@ namespace Tetris
 
         public Block GetAndUpdate ()
         {
-            Block block = NextBlock();
+            Block block = NextBlock;
 
             do
             {
