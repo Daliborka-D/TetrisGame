@@ -51,9 +51,10 @@ namespace Tetris
         public MainWindow()
         {
             InitializeComponent();
+            imageControls = SetupGameCanvas(gameState.GameGrid);
         }
 
-        private Image[,] SetupGameCanvas (GameGrid grid)
+        private Image[,] SetupGameCanvas(GameGrid grid)
         {
             Image[,] imageControls = new Image[grid.Rows, grid.Columns];
             int cellSize = 25;
@@ -73,9 +74,66 @@ namespace Tetris
                     GameCanvas.Children.Add(imageControl);
                     imageControls[r, c] = imageControl;
                 }
-                return imageControls;
+                
+            }
+            return imageControls;
+        }
+
+        private void DrawGrid (GameGrid grid)
+        {
+            for (int r = 0; r < grid.Rows; r++)
+            {
+                for (int c = 0; c < grid.Columns; c++)
+                {
+                    int id = grid[r, c];
+                    imageControls[r, c].Source = tileImages[id];
+                }
             }
         }
+
+        private void DrawBlock (Block block)
+        {
+            foreach (Position p in block.TilePositions())
+            {
+                imageControls[p.Row, p.Column].Source = tileImages[block.Id];
+            }
+        }
+
+        private void Draw (GameState gameState)
+        {
+            DrawGrid(gameState.GameGrid);
+            DrawBlock(gameState.CurrentBlock);
+        }
+        private void Windows_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (gameState.GameOver)
+            {
+                return;
+            }
+            switch (e.Key)
+            {
+                case Key.Left:
+                    gameState.MoveBlockLeft();
+                    break;
+                case Key.Right:
+                    gameState.MoveBlockRight();
+                    break;
+                case Key.Down:
+                    gameState.MoveBlockDown();
+                    break;
+            }
+        }
+
+        private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
+        {
+            Draw(gameState);
+        }
+        private void PlayAgain_Click (object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
 
 
     }
